@@ -1,0 +1,216 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.example.org/xml-db" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="database">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="connection">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="address"/>
+                <xs:attribute type="xs:string" name="database"/>
+                <xs:attribute type="xs:string" name="database_type"/>
+                <xs:attribute type="xs:string" name="password"/>
+                <xs:attribute type="xs:short" name="port"/>
+                <xs:attribute type="xs:string" name="schema"/>
+                <xs:attribute type="xs:string" name="username"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="package" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType mixed="true">
+            <xs:sequence>
+              <xs:element name="package" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="table" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="groups">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="group">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:byte" name="id" use="optional"/>
+                                        <xs:attribute type="xs:string" name="name" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="column" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType mixed="true">
+                              <xs:sequence>
+                                <xs:element name="references" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:string" name="refColumn" use="optional"/>
+                                        <xs:attribute type="xs:string" name="refTable" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:string" name="code" use="optional"/>
+                              <xs:attribute type="xs:byte" name="group" use="optional"/>
+                              <xs:attribute type="xs:string" name="name" use="optional"/>
+                              <xs:attribute type="xs:string" name="nullable" use="optional"/>
+                              <xs:attribute type="xs:string" name="primary" use="optional"/>
+                              <xs:attribute type="xs:string" name="size" use="optional"/>
+                              <xs:attribute type="xs:string" name="type" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="crud">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="create"/>
+                                <xs:element type="xs:string" name="retrieve"/>
+                                <xs:element type="xs:string" name="update"/>
+                                <xs:element type="xs:string" name="delete"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="code" use="optional"/>
+                        <xs:attribute type="xs:string" name="name" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="package" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="table" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="groups">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="group">
+                                        <xs:complexType>
+                                          <xs:simpleContent>
+                                            <xs:extension base="xs:string">
+                                              <xs:attribute type="xs:byte" name="id" use="optional"/>
+                                              <xs:attribute type="xs:string" name="name" use="optional"/>
+                                            </xs:extension>
+                                          </xs:simpleContent>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="column" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType mixed="true">
+                                    <xs:sequence>
+                                      <xs:element name="references" minOccurs="0">
+                                        <xs:complexType>
+                                          <xs:simpleContent>
+                                            <xs:extension base="xs:string">
+                                              <xs:attribute type="xs:string" name="refColumn" use="optional"/>
+                                              <xs:attribute type="xs:string" name="refTable" use="optional"/>
+                                            </xs:extension>
+                                          </xs:simpleContent>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:string" name="code" use="optional"/>
+                                    <xs:attribute type="xs:byte" name="group" use="optional"/>
+                                    <xs:attribute type="xs:string" name="name" use="optional"/>
+                                    <xs:attribute type="xs:string" name="nullable" use="optional"/>
+                                    <xs:attribute type="xs:string" name="primary" use="optional"/>
+                                    <xs:attribute type="xs:string" name="size" use="optional"/>
+                                    <xs:attribute type="xs:string" name="type" use="optional"/>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="crud">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="create"/>
+                                      <xs:element type="xs:string" name="retrieve"/>
+                                      <xs:element type="xs:string" name="update"/>
+                                      <xs:element type="xs:string" name="delete"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:string" name="code" use="optional"/>
+                              <xs:attribute type="xs:string" name="name" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="name" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="table" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="groups">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="group">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:byte" name="id" use="optional"/>
+                                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="column" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType mixed="true">
+                        <xs:sequence>
+                          <xs:element name="references" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="refColumn" use="optional"/>
+                                  <xs:attribute type="xs:string" name="refTable" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="code" use="optional"/>
+                        <xs:attribute type="xs:byte" name="group" use="optional"/>
+                        <xs:attribute type="xs:string" name="name" use="optional"/>
+                        <xs:attribute type="xs:string" name="nullable" use="optional"/>
+                        <xs:attribute type="xs:string" name="primary" use="optional"/>
+                        <xs:attribute type="xs:string" name="size" use="optional"/>
+                        <xs:attribute type="xs:string" name="type" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="crud">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="create"/>
+                          <xs:element type="xs:string" name="retrieve"/>
+                          <xs:element type="xs:string" name="update"/>
+                          <xs:element type="xs:string" name="delete"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="code" use="optional"/>
+                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="name"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

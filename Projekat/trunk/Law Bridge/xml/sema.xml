@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database xmlns="http://www.example.org/xml-db" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Law Bridge - Sistem za advokatske urede" xsi:schemaLocation="http://www.example.org/xml-db xml-db.xsd">
+    <connection address="78.28.157.8" database="PIS2023" database_type="MsSQL" password="EtfPIS2023G19462" port="1435" schema="pisg2" username="EtfPIS2023G2"/>
+    <package name="Uredi">
+            <table code="Organizaciona jedinica" name="Organizaciona jedinica">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="4" type="numeric(4)"/>
+                <column code="Sjedište organizacione jedinice" group="0" name="Sjedište organizacione jedinice" nullable="false" primary="false" size="" type="int">
+                     <refcolumn>Naziv mjesta</refcolumn> 
+                     <reftable>Naseljeno mjesto</reftable>
+                </column>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="120" type="varchar(120)"/>
+                <column code="Adresa" group="0" name="Adresa" nullable="true" primary="false" size="120" type="varchar(120)"/>
+                <column code="Telefon" group="0" name="Telefon" nullable="true" primary="false" size="11" type="varchar(11)"/>
+                <column code="email" group="0" name="email" nullable="true" primary="false" size="60" type="varchar(60)"/>
+                <crud>
+                    <create>{call udsp_CreateUred(?,?,?,?,?,?,?,?,?)}</create>
+                    <retrieve>{call udsp_RetrieveAllUred}</retrieve>
+                    <update>{call udsp_UpdateUred(?,?,?,?,?,?)}</update>
+                    <delete>{call udsp_DeleteUred(?)}</delete>
+                </crud>
+            </table>
+            <package name= "Resursi">
+            	<package name="Zaposleni">
+		             <table code="Registar zaposlenih" name="Registar zaposlenih">
+		                <groups>
+		                    <group id="0" name="Ime grupe"/>
+		                </groups>
+		                <column code="Redni broj evidencije" group="0" name="Redni broj evidencije" nullable="false" primary="true" size="" type="int"/>
+		                <column code="Drzava zaposlenog" group="0" name="Drzava zaposlenog" nullable="false" primary="true" size="3" type="char(3)">
+		                    <refcolumn>Naziv</refcolumn>
+		                    <reftable>Država</reftable>
+		                </column>
+		                <column code="Prezime" group="0" name="Prezime" nullable="false" primary="false" size="60" type="varchar(60)"/>
+		                <column code="Ime" group="0" name="Ime" nullable="false" primary="false" size="60" type="varchar(60)"/>
+		                <column code="Pol" group="0" name="Pol" nullable="false" primary="false" size="1" type="char(1)"/>
+		                <column code="Matični broj" group="0" name="Matični broj" nullable="true" primary="false" size="13" type="varchar(13)"/>
+		                <crud>
+		                    <create>{call udsp_CreateZaposleni(?,?,?,?,?,?)}</create>
+		                    <retrieve>{call udsp_RetrieveAllZaposleni}</retrieve>
+		                    <update>call udsp_UpdateZaposleni(?,?,?,?,?,?)}</update>
+		                    <delete>{call udsp_DeleteZaposleni(?)}</delete>
+		                </crud>
+		            </table>
+            	</package>
+            	<package name="Inventar">
+	            	<table code="Trajni materijalni resursi" name="Trajni materijalni resursi">
+	                    <groups>
+	                        <group id="0" name="Ime grupe"/>
+	                    </groups>
+	                    <column code="Inventarni broj" group="0" name="Inventarni broj" nullable="false" primary="true" size="8" type="char(8)"/>
+	                    <column code="Tip resursa" group="0" name="Tip resursa" nullable="false" primary="true" size="5" type="char(5)">
+	                       <refcolumn>Naziv</refcolumn>
+	                       <reftable>Tip resursa</reftable>
+	                    </column>
+	                    <column code="Organizaciona jedinica" group="0" name="Organizaciona jedinica" nullable="false" primary="false" size="4" type="numeric(4)">
+	                        <refcolumn>Naziv</refcolumn>
+	                        <reftable>Organizaciona jedinica</reftable>
+	                    </column>
+	                    <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="30" type="varchar(30)"/>
+	                    <column code="Opis" group="0" name="Opis" nullable="false" primary="false" size="50" type="varchar(150)"/>
+	                    <crud>
+	                        <create>{call udsp_CreateTrajniMaterijalniResurs(?,?,?,?,?)}</create>
+	                        <retrieve>{call udsp_RetrieveAllTrajniMaterijalniResurs}</retrieve>
+	                        <update>{call udsp_UpdateTrajniMaterijalniResurs(?,?,?,?,?)}</update>
+	                        <delete>{call udsp_DeleteTrajniMaterijalniResurs(?)}</delete>
+	                    </crud>
+	                </table>
+	                <table code="Potrošni materijalni resursi" name="Potrošni materijalni resursi">
+                    <groups>
+                        <group id="0" name="Ime grupe"/>
+                    </groups>
+                    <column code="Inventarni broj" group="0" name="Inventarni broj" nullable="false" primary="true" size="4" type="char(4)"/>
+                    <column code="Tip resursa" group="0" name="Tip resursa" nullable="false" primary="true" size="5" type="char(5)">
+                        <refcolumn>Naziv</refcolumn>
+                        <reftable>Tip potrošnog materijalnog resursa</reftable>
+                    </column>
+                    <column code="Organizaciona jedinica" group="0" name="Organizaciona jedinica" nullable="false" primary="false" size="4" type="numeric(4)">
+                        <refcolumn>Naziv</refcolumn>
+                        <reftable>Organizaciona jedinica</reftable>
+                    </column>
+                    <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="50" type="varchar(50)"/>
+                    <column code="Opis" group="0" name="Opis" nullable="true" primary="false" size="150" type="varchar(150)"/>
+                    <crud>
+                        <create>{call udsp_CreatePotrosniMaterijalniResurs(?,?,?,?,?)}</create>
+                        <retrieve>{call udsp_RetrieveAllPotrosniMaterijalniResurs}</retrieve>
+                        <update>{call udsp_UpdatePotrosniMaterijalniResurs(?,?,?,?,?)}</update>
+                        <delete>{call udsp_DeletePotrosniMaterijalniResurs(?)}</delete>
+                    </crud>
+                </table>     
+            	</package>
+            </package>
+    </package>
+    
+    <package name="Predmeti">
+            <table code="Predmet" name="Predmet">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="ID" group="0" name="ID" nullable="false" primary="true" size="" type="int"/>
+                <column code="Tip" group="0" name="Tip" nullable="false" primary="true" size="" type="int">
+                    <refcolumn>Naziv</refcolumn>
+                    <reftable>Podtip</reftable>
+                </column>
+                <column code="Podtip" group="0" name="Podtip" nullable="true" primary="false" size="" type="int">
+                    <refcolumn>Naziv</refcolumn>
+                    <reftable>Podtip</reftable>
+                </column>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="100" type="varchar(100)"/>
+                <column code="Opis" group="0" name="Opis" nullable="true" primary="false" size="500" type="varchar(500)"/>
+                <column code="Datum otvaranja" group="0" name="Datum otvaranja" nullable="false" primary="false" size="" type="datetime"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllPredmet}</retrieve>
+                    <update/>
+                    <delete>{call udsp_DeletePredmet(?)}</delete>
+                </crud>
+            </table>
+            <table code="Sudski postupak" name="Sudski postupak">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Predmet" group="0" name="Predmet" nullable="false" primary="true" size="" type="int">
+                     <refcolumn>Naziv</refcolumn>
+                    <reftable>Predmet</reftable>
+                </column>
+                <column code="Sud" group="0" name="Sud" nullable="false" primary="false" size="" type="int">
+                     <refcolumn>Naziv</refcolumn>
+                    <reftable>Sud</reftable>
+                </column>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="100" type="varchar(100)"/>
+                <column code="Datum pocetka" group="0" name="Datum pocetka" nullable="false" primary="false" size="" type="datetime"/>
+                <column code="Datum zavrsetka" group="0" name="Datum zavrsetka" nullable="false" primary="false" size="" type="datetime"/>
+                <column code="Opis" group="0" name="Opis" nullable="true" primary="false" size="300" type="varchar(300)"/>
+                <column code="Ishod" group="0" name="Ishod" nullable="false" primary="false" size="150" type="varchar(150)"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllSudskiPostupak}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+            <table code="Rociste" name="Rociste">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Predmet" group="0" name="Predmet" nullable="false" primary="true" size="" type="int">
+                    <refcolumn>Naziv</refcolumn>
+                    <reftable>Predmet</reftable>
+                </column>
+                <column code="Postupak" group="0" name="Postupak" nullable="false" primary="true" size="" type="int">
+                    <refcolumn>Naziv</refcolumn>
+                    <reftable>Sudski postupak</reftable>
+                </column>
+                <column code="Tip rocista" group="0" name="Tip rocista" nullable="false" primary="true" size="" type="int">
+                     <refcolumn>Naziv</refcolumn>
+                    <reftable>Tip rocista</reftable>
+                </column>
+                <column code="Datum i vrijeme" group="0" name="Datum i vrijeme" nullable="false" primary="false" size="" type="datetime"/>
+                <column code="Napomena" group="0" name="Napomena" nullable="true" primary="false" size="300" type="varchar(300)"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllRociste}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+            <package name="Dokumentacija">
+	            <table code="Dokumenti" name="Dokumenti">
+	                <groups>
+	                    <group id="0" name="Ime grupe"/>
+	                </groups>
+	                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+	                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="50" type="varchar(50)"/>
+	                <column code="Datum kreiranja" group="0" name="Datum kreiranja" nullable="false" primary="false" size="" type="datetime"/>
+	                <column code="Autor" group="0" name="Autor" nullable="false" primary="false" size="60" type="varchar(60)"/>
+	                <crud>
+	                    <create/>
+	                    <retrieve>{call udsp_RetrieveAllDokumentii}</retrieve>
+	                    <update/>
+	                    <delete/>
+	                </crud>
+	            </table>
+	            <table code="Dokumentacija predmeta" name="Dokumentacija predmeta">
+	                <groups>
+	                    <group id="0" name="Ime grupe"/>
+	                </groups>
+	                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int">
+	                	<references refColumn="Oznaka" refTable="Dokumentii"/>
+	                </column>
+	                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="" type="int">
+	                    <references refColumn="Naziv" refTable="Dokumentii"/>
+	                </column>
+	               <column code="Datum kreiranja" group="0" name="Datum kreiranja" nullable="false" primary="false" size="" type="int">
+	                    <references refColumn="Datum kreiranja" refTable="Dokumentii"/>
+	                </column>
+	                <column code="Autor" group="0" name="Autor" nullable="false" primary="false" size="" type="int">
+	                    <references refColumn="Autor" refTable="Dokumentii"/>
+	                </column>
+	                <column code="Predmet" group="0" name="Predmet" nullable="false" primary="true" size="" type="int">
+	                    <refcolumn>Naziv</refcolumn>
+	                    <reftable>Predmet</reftable>
+	                </column>
+	                <crud>
+	                    <create/>
+	                    <retrieve>{call udsp_RetrieveAllDokumentiPredmeta}</retrieve>
+	                    <update/>
+	                    <delete/>
+	                </crud>
+	            </table>
+	            <table code="Dokumenti sa ročišta" name="Dokumenti sa ročišta">
+	                <groups>
+	                    <group id="0" name="Ime grupe"/>
+	                </groups>
+	                <column code="Dokument" group="0" name="Dokument" nullable="false" primary="true" size="" type="int">
+	                    <references refColumn="Naziv" refTable="Dokumentii"/>
+	                </column>
+	                <column code="Predmet" group="0" name="Predmet" nullable="false" primary="true" size="" type="int">
+	                    <refcolumn>Naziv</refcolumn>
+	                    <reftable>Predmet</reftable>
+	                </column>
+	                <column code="Tip rocista" group="0" name="Tip rocista" nullable="false" primary="true" size="" type="int">
+	                    <refcolumn>Naziv</refcolumn>
+	                    <reftable>Tip rocista</reftable>
+	                </column>
+	                <column code="Datum rocista" group="0" name="Datum rocista" nullable="false" primary="true" size="" type="int">
+	                    <references refColumn="Datum i vrijeme" refTable="Rociste"/>
+	                </column>
+	                <crud>
+	                    <create/>
+	                    <retrieve>{call udsp_RetrieveAllDokumentiSaRocista}</retrieve>
+	                    <update/>
+	                    <delete/>
+	                </crud>
+	            </table>
+	            <table code="Dokumenti u postupku" name="Dokumenti u postupku">
+	                <groups>
+	                    <group id="0" name="Ime grupe"/>
+	                </groups>
+	                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="true" size="" type="int">
+	                    <references refColumn="Naziv" refTable="Dokumentii"/>
+	                </column>
+	                <column code="Datum kreiranja" group="0" name="Naziv" nullable="false" primary="true" size="" type="int">
+	                    <references refColumn="Datum kreiranja" refTable="Dokumentii"/>
+	                </column>
+	                <column code="Autor" group="0" name="Autor" nullable="false" primary="true" size="" type="int">
+	                    <references refColumn="Autor" refTable="Dokumentii"/>
+	                </column>
+	                <column code="Predmet" group="0" name="Predmet" nullable="false" primary="true" size="" type="int">
+	                    <refcolumn>Naziv</refcolumn>
+	                    <reftable>Predmet</reftable>
+	                </column>
+	                <column code="Sudski postupak" group="0" name="Sudski postupak" nullable="false" primary="true" size="" type="int">
+	                    <refcolumn>Naziv</refcolumn>
+	                    <reftable>Sudski postupak</reftable>Sudski>
+	                </column>
+	                <crud>
+	                    <create/>
+	                    <retrieve>{call udsp_RetrieveAllDokumentiUPostupku}</retrieve>
+	                    <update/>
+	                    <delete/>
+	                </crud>
+	            </table>
+   	 	</package>
+   	 	<table code="Arhivirani predmeti" name="Arhivirani predmeti">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="10" type="char(10)"/>
+                 <column code="Broj arhivske kutije" group="0" name="Broj arhivske kutije" nullable="false" primary="false" size="10" type="char(10)"/>
+                 <column code="Predmet" group="0" name="Predmet" nullable="false" primary="false" size="" type="int">
+                    <refcolumn>Naziv</refcolumn>
+	                <reftable>Predmet</reftable>
+                </column>
+                <column code="Datum arhiviranja" group="0" name="Datum arhiviranja" nullable="false" primary="false" size="" type="datetime"/>
+               <column code="Napomena" group="0" name="Napomena" nullable="true" primary="false" size="200" type="varchar(200)"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllArhiviraniPredmet}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table> 
+             
+    </package>
+    <package name="Klijent">
+    	 <table code="Fizička lica" name="Fizička lica">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="JMBG" group="0" name="JMBG" nullable="true" primary="false" size="13" type="char(13)">
+                    <references refColumn="JMBG" refTable="Osoba"/>
+                </column>
+               	<column code="Ime lica" name="Ime lica" nullable="false" primary="false" size="" type="varchar(30)">
+               		<refcolumn>Ime</refcolumn>
+               		<reftable>Osoba</reftable>
+               	</column>
+                <column code="Prezime lica" name="Prezime lica" nullable="false" primary="false" size="" type="varchar(30)">
+               		<refcolumn>Prezime</refcolumn>
+               		<reftable>Osoba</reftable>
+               	</column>                
+                <column code="Drzava" name="Drzava" nullable="false" primary="false" size="" type="char(3)">
+               		<refColumn>Država</refColumn>
+               		<refTable>Osoba</refTable>
+               	</column>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllFizickaLica}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+            <table code="Pravna lica" name="Pravna lica">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+               	<column code="Registracioni broj" name="Registracioni broj" nullable="false" primary="false" size="" type="char(10)">
+               		<refcolumn>Registracioni broj</refcolumn>
+               		<reftable>Poslovni sistem</reftable>
+               	</column>
+                <column code="Naziv pravnog lica" name="Naziv pravnog lica" nullable="false" primary="false" size="" type="varchar(120)">
+               		<refColumn>Naziv</refColumn>
+               		<refTable>Poslovni sistem</refTable>
+               	</column>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllPravnaLica}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+            <table code="Pravni ugovori sa fizičkim licima" name="Pravni ugovori sa fizičkim licima">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Advokat" group="0" name="Advokat" nullable="false" primary="false" size="" type="varchar(60)">
+                    <refcolumn>Ime</refcolumn>
+                    <reftable>Registar zaposlenih</reftable>
+                </column>
+                <column code="Fizicko lice - klijent" group="0" name="Fizicko lice - klijent" nullable="true" primary="false" size="" type="varchar(60)">
+                    <refcolumn>Naziv</refcolumn>
+                    <reftable>Klijent</reftable>
+                </column>
+                <column code="Datum sklapanja" group="0" name="Datum sklapanja" nullable="false" primary="false" size="" type="datetime"/>
+                <column code="Naziv ugovora" group="0" name="Naziv ugovora" nullable="false" primary="false" size="" type="varchar(50)"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllUgovoriSaFizickimLicima}</retrieve>
+                    <update/>
+                    <delete>{call udsp_DeletePravniUgovor(?)}</delete>
+                </crud>
+            </table>
+             <table code="Pravni ugovori sa pravnim licima" name="Pravni ugovori sa pravnim licima">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Advokat" group="0" name="Advokat" nullable="false" primary="false" size="" type="varchar(60)">
+                    <refcolumn>Ime</refcolumn>
+                    <reftable>Registar zaposlenih</reftable>
+                </column>
+                <column code="Pravno lice - klijent" group="0" name="Pravno lice - klijent" nullable="false" primary="false" size="" type="varchar(50)">
+                    <refcolumn>Naziv</refcolumn>
+                    <reftable>Klijent</reftable>
+                </column>
+                <column code="Datum sklapanja" group="0" name="Datum sklapanja" nullable="false" primary="false" size="" type="datetime"/>
+                <column code="Naziv ugovora" group="0" name="Naziv ugovora" nullable="false" primary="false" size="" type="varchar(50)"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllUgovoriSaPravnimLicima}</retrieve>
+                    <update/>
+                    <delete>{call udsp_DeletePravniUgovor(?)}</delete>
+                </crud>
+            </table>
+	    	<table code="Interni sastanci" name="Interni sastanci">
+	                <groups>
+	                    <group id="0" name="Ime grupe"/>
+	                </groups>
+	                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+	                <column code="Datum i vrijeme" group="0" name="Datum i vrijeme" nullable="false" primary="false" size="" type="datetime"/>
+	                <column code="Trajanje" group="0" name="Trajanje" nullable="true" primary="false" size="20" type="varchar(20)"/>
+	                <column code="Sazetak" group="0" name="Sazetak" nullable="false" primary="false" size="300" type="varchar(300)"/>
+	                <crud>
+	                    <create/>
+	                    <retrieve>{call udsp_RetrieveAllInterniSastanci}</retrieve>
+	                    <update/>
+	                    <delete>{call udsp_DeleteInterniSastanci}</delete>
+	                </crud>
+	            </table>
+    </package>
+    <package name="Fakture">
+    	   <table code="Sve fakture" name="Sve fakture">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Broj" group="0" name="Broj" nullable="false" primary="true" size="10" type="varchar(10)"/>
+                <column code="Tip naplate" group="0" name="Tip naplate" nullable="false" primary="true" size="" type="int">
+                     <refcolumn>Naziv</refcolumn>
+                    <reftable>Tip naplate</reftable>
+                </column>
+                <column code="Ugovor" group="0" name="Ugovor" nullable="false" primary="false" size="" type="int">
+                   <refcolumn>Naziv ugovora</refcolumn>
+	               <reftable>Pravni ugovor</reftable>
+                </column>
+                <column code="Datum izdavanja" group="0" name="Datum izdavanja" nullable="false" primary="false" size="" type="datetime"/>
+                <column code="Cijena" group="0" name="Cijena" nullable="false" primary="false" size="7" type="numeric(7)"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllFaktura}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+    </package>
+    <package name="Nalozi">
+    	<table code="Svi korisnički nalozi" name="Svi korisnički nalozi">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Drzava zaposlenog" group="0" name="Drzava zaposlenog" nullable="false" primary="true" size="3" type="char(3)">
+                    <references refColumn="Drzava zaposlenog" refTable="Registar zaposlenih"/>
+                    <references refColumn="Oznaka" refTable="Poslovni sistem"/>
+                </column>
+                <column code="Poslovni sistem" group="0" name="Poslovni sistem" nullable="false" primary="true" size="" type="bigint">
+                    <references refColumn="Poslovni sistem" refTable="Registar zaposlenih"/>
+                    <references refColumn="Identifikator" refTable="Poslovni sistem"/>
+                </column>
+                <column code="User ID" group="0" name="User ID" nullable="false" primary="true" size="30" type="varchar(30)"/>
+                <column code="Zaposleni" group="0" name="Zaposleni" nullable="false" primary="false" size="" type="int">
+                    <refcolumn>Redni broj evidencije</refcolumn>
+                    <reftable>Registar zaposlenih</reftable>
+                </column>
+                <column code="Identifikator" group="0" name="Identifikator" nullable="false" primary="false" size="" type="bigint"/>
+                <column code="Username" group="0" name="Username" nullable="false" primary="false" size="15" type="varchar(15)"/>
+                <column code="Password" group="0" name="Password" nullable="true" primary="false" size="256" type="varchar(256)"/>
+                <column code="Datum registracije" group="0" name="Datum registracije" nullable="false" primary="false" size="" type="datetime"/>
+                <column code="Aktivan" group="0" name="Aktivan" nullable="false" primary="false" size="" type="bit"/>
+                <crud>
+                    <create/>
+                    <retrieve>{call udsp_RetrieveAllKorisnickiNalog}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+    </package>   
+    <package name="Sifarnici sistema">
+		 <table code="Tip predmeta" name="Tip predmeta">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="40" type="varchar(40)"/>
+                <crud>
+                    <create>{call udsp_CreateSifTipPredmeta(?,?)}</create>
+                    <retrieve>{call udsp_RetrieveSifTipPredmeta}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+            <table code="Tip učesnika" name="Tip učesnika">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="40" type="varchar(40)"/>
+                <crud>
+                    <create>{call udsp_CreateSifUcesnika(?,?)}</create>
+                    <retrieve>{call udsp_RetrieveSifTipUcesnika}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+		 <table code="Tip trajnog materijalnog resursa" name="Tip trajnog materijalnog resursa">
+                    <groups>
+                        <group id="0" name="Ime grupe"/>
+                    </groups>
+                    <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="5" type="char(5)"/>
+                    <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="50" type="varchar(50)"/>
+                    <crud>
+                        <create>{call udsp_CreateSifTipResursa(?,?)}</create>
+                        <retrieve>{call udsp_RetrieveSifTipResursa}</retrieve>
+                        <update/>
+                        <delete/>
+                    </crud>
+                </table>
+                 <table code="Tip potrošnog materijalnog resursa" name="Tip potrošnog materijalnog resursa">
+                    <groups>
+                        <group id="0" name="Ime grupe"/>
+                    </groups>
+                    <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="5" type="char(5)"/>
+                    <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="50" type="varchar(50)"/>
+                    <crud>
+                        <create>{call udsp_CreateSifTipPotrosnog(?,?)}</create>
+                        <retrieve>{call udsp_RetrieveSifTipPotrosnog}</retrieve>
+                        <update/>
+                        <delete/>
+                    </crud>
+                </table>
+                <table code="Tip ročišta" name="Tip ročišta">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="60" type="varchar(60)"/>
+                <crud>
+                    <create>{call udsp_CreateSifTipRocista(?,?)}</create>
+                    <retrieve>{call udsp_RetrieveSifTipRocista}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+            <table code="Tip naplate" name="Tip naplate">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="40" type="varchar(40)"/>
+                <crud>
+                    <create>{call udsp_CreateSifTipNaplate(?,?)}</create>
+                    <retrieve>{call udsp_RetrieveSifTipNaplate}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+         	<table code="Tip izvještaja" name="Tip izvještaja">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="40" type="varchar(20)"/>
+                <crud>
+                    <create>{call udsp_CreateSifTipIzvjestaja(?,?)}</create>
+                    <retrieve>{call udsp_RetrieveSifTipIzvjestaja}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+            <table code="Tip dokumenta" name="Tip dokumenta">
+                <groups>
+                    <group id="0" name="Ime grupe"/>
+                </groups>
+                <column code="Oznaka" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+                <column code="Naziv" group="0" name="Naziv" nullable="false" primary="false" size="40" type="varchar(20)"/>
+                <crud>
+                    <create>{call udsp_CreateSifTipDokumenta(?,?)}</create>
+                    <retrieve>{call udsp_RetrieveSifTipDokumenta}</retrieve>
+                    <update/>
+                    <delete/>
+                </crud>
+            </table>
+	</package>
+</database>
